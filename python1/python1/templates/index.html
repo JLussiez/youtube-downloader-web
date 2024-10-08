@@ -1,33 +1,50 @@
 {% extends "layout.html" %}
 
+{% block head %}
+<meta charset="UTF-8">
+{% endblock %}
+
 {% block content %}
-
-<div class="jumbotron">
-    <h1>Flask</h1>
-    <p class="lead">Flask is a free web framework for building great Web sites and Web applications using HTML, CSS and JavaScript.</p>
-    <p><a href="http://flask.pocoo.org/" class="btn btn-primary btn-large">Learn more &raquo;</a></p>
-</div>
-
-<div class="row">
-    <div class="col-md-4">
-        <h2>Getting started</h2>
-        <p>
-            Flask gives you a powerful, patterns-based way to build dynamic websites that
-            enables a clean separation of concerns and gives you full control over markup
-            for enjoyable, agile development.
-        </p>
-        <p><a class="btn btn-default" href="http://flask.pocoo.org/docs/">Learn more &raquo;</a></p>
+<form method="POST" action="/download">
+    <div class="form-group">
+        <label for="url">URL de la vidéo YouTube :</label>
+        <input type="text" class="form-control" id="url" name="url" placeholder="Entrez l'URL de la vidéo" required>
     </div>
-    <div class="col-md-4">
-        <h2>Get more libraries</h2>
-        <p>The Python Package Index is a repository of software for the Python programming language.</p>
-        <p><a class="btn btn-default" href="https://pypi.python.org/pypi">Learn more &raquo;</a></p>
+    <div class="form-group">
+        <label for="format">Format de sortie :</label>
+        <select class="form-control" id="format" name="format">
+            <option value="mp4">MP4</option>
+            <option value="mp3">MP3</option>
+        </select>
     </div>
-    <div class="col-md-4">
-        <h2>Microsoft Azure</h2>
-        <p>You can easily publish to Microsoft Azure using Visual Studio. Find out how you can host your application using a free trial today.</p>
-        <p><a class="btn btn-default" href="http://azure.microsoft.com">Learn more &raquo;</a></p>
+    <div class="form-group">
+        <label for="quality">Qualité :</label>
+        <select class="form-control" id="quality" name="quality">
+            <!-- Les options seront ajoutées via JavaScript après récupération -->
+        </select>
     </div>
-</div>
+    <button type="submit" class="btn btn-primary">Télécharger</button>
+</form>
 
+<script>
+    document.getElementById('url').addEventListener('blur', function () {
+        // Récupère les qualités disponibles
+        fetch('/qualities', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded',
+            },
+            body: `url=${this.value}`
+        }).then(response => response.json()).then(data => {
+            const qualitySelect = document.getElementById('quality');
+            qualitySelect.innerHTML = ''; // Clear existing options
+            data.qualities.forEach(quality => {
+                const option = document.createElement('option');
+                option.value = quality;
+                option.text = quality;
+                qualitySelect.add(option);
+            });
+        });
+    });
+</script>
 {% endblock %}

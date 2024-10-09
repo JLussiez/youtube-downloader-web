@@ -1,4 +1,4 @@
-# -*- coding: utf-8 -*-
+﻿# -*- coding: utf-8 -*-
 from datetime import datetime
 from flask import render_template, request, redirect, url_for, flash, jsonify
 from pytube import YouTube

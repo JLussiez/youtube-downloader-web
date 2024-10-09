@@ -7,8 +7,8 @@
 {% block content %}
 <form method="POST" action="/download">
     <div class="form-group">
-        <label for="url">URL de la vidéo YouTube :</label>
-        <input type="text" class="form-control" id="url" name="url" placeholder="Entrez l'URL de la vidéo" required>
+        <label for="url">URL de la vidÃ©o YouTube :</label>
+        <input type="text" class="form-control" id="url" name="url" placeholder="Entrez l'URL de la vidÃ©o" required>
     </div>
     <div class="form-group">
         <label for="format">Format de sortie :</label>
@@ -18,17 +18,17 @@
         </select>
     </div>
     <div class="form-group">
-        <label for="quality">Qualité :</label>
+        <label for="quality">QualitÃ© :</label>
         <select class="form-control" id="quality" name="quality">
-            <!-- Les options seront ajoutées via JavaScript après récupération -->
+            <!-- Les options seront ajoutÃ©es via JavaScript aprÃ¨s rÃ©cupÃ©ration -->
         </select>
     </div>
-    <button type="submit" class="btn btn-primary">Télécharger</button>
+    <button type="submit" class="btn btn-primary">TÃ©lÃ©charger</button>
 </form>
 
 <script>
     document.getElementById('url').addEventListener('blur', function () {
-        // Récupère les qualités disponibles
+        // RÃ©cupÃ¨re les qualitÃ©s disponibles
         fetch('/qualities', {
             method: 'POST',
             headers: {
